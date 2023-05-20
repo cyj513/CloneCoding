@@ -1,0 +1,6 @@
+framework module Pods_ViewCloneCoding1 {
+  umbrella header "Pods-ViewCloneCoding1-umbrella.h"
+
+  export *
+  module * { export * }
+}
