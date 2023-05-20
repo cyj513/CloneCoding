@@ -40,7 +40,7 @@
 		8844D0A629D31BC700B31AD7 = {
 			isa = PBXGroup;
 			children = (
-				8844D0B129D31BC700B31AD7 /* storyboard calculator */,
+				8844D0B129D31BC700B31AD7 /* Storyboard Calculator */,
 				8844D0B029D31BC700B31AD7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,18 +53,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8844D0B129D31BC700B31AD7 /* storyboard calculator */ = {
+		8844D0B129D31BC700B31AD7 /* Storyboard Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				8844D0BB29D31BC700B31AD7 /* Assets.xcassets */,
+				8844D0BD29D31BC700B31AD7 /* LaunchScreen.storyboard */,
+				8844D0B829D31BC700B31AD7 /* Main.storyboard */,
 				8844D0B229D31BC700B31AD7 /* AppDelegate.swift */,
 				8844D0B429D31BC700B31AD7 /* SceneDelegate.swift */,
 				8844D0B629D31BC700B31AD7 /* ViewController.swift */,
-				8844D0B829D31BC700B31AD7 /* Main.storyboard */,
-				8844D0BB29D31BC700B31AD7 /* Assets.xcassets */,
-				8844D0BD29D31BC700B31AD7 /* LaunchScreen.storyboard */,
 				8844D0C029D31BC700B31AD7 /* Info.plist */,
 			);
-			path = "storyboard calculator";
+			path = "Storyboard Calculator";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8844D0AA29D31BC700B31AD7 /* Build configuration list for PBXProject "storyboard calculator" */;
+			buildConfigurationList = 8844D0AA29D31BC700B31AD7 /* Build configuration list for PBXProject "Storyboadalculator" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -339,7 +339,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8844D0AA29D31BC700B31AD7 /* Build configuration list for PBXProject "storyboard calculator" */ = {
+		8844D0AA29D31BC700B31AD7 /* Build configuration list for PBXProject "Storyboadalculator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8844D0C129D31BC700B31AD7 /* Debug */,
