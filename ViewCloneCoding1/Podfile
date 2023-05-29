@@ -8,5 +8,6 @@ target 'ViewCloneCoding1' do
   # Pods for ViewCloneCoding1
     pod 'SnapKit'
     pod 'Then'
+    pod 'Alamofire'
 
 end

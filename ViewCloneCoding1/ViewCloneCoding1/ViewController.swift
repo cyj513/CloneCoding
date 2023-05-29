@@ -8,8 +8,10 @@
 import UIKit
 import SnapKit
 import Then
+import Alamofire
 
 class ViewController: UIViewController {
+    let httpClient = HTTPClient()
     
     let imageView = UIImageView().then {
         $0.image = UIImage(named: "mainLogo")
@@ -25,14 +27,25 @@ class ViewController: UIViewController {
     }
     let idTextField = UITextField().then {
         $0.backgroundColor = UIColor(named: "textFieldColor")
-        $0.attributedPlaceholder = NSAttributedString(string: "    아이디", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+        $0.attributedPlaceholder = NSAttributedString(string: "아이디", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+        $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
+        $0.leftViewMode = .always
         $0.layer.cornerRadius = 24
     }
     let passwordTextField = UITextField().then {
         $0.backgroundColor = UIColor(named: "textFieldColor")
-        $0.attributedPlaceholder = NSAttributedString(string: "    비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+        $0.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+        $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
+        $0.leftViewMode = .always
         $0.layer.cornerRadius = 24
     }
+    //    let nameTextField = UITextField().then {
+    //        $0.backgroundColor = UIColor(named: "textFieldColor")
+    //        $0.attributedPlaceholder = NSAttributedString(string: "이름", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
+    //        $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
+    //        $0.leftViewMode = .always
+    //        $0.layer.cornerRadius = 24
+    //    }
     let loginButton = UIButton(type: .system).then {
         $0.backgroundColor = UIColor(named: "baseColor")
         $0.setTitle("에브리타임 로그인", for: .normal)
@@ -55,6 +68,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        loginButton.addTarget(self, action: #selector(didClickLoginButton), for: .touchUpInside)
     }
     override func viewDidLayoutSubviews() {
         addSubView()
@@ -66,6 +80,7 @@ class ViewController: UIViewController {
         self.view.addSubview(nameLabel)
         self.view.addSubview(idTextField)
         self.view.addSubview(passwordTextField)
+        //        self.view.addSubview(nameTextField)
         self.view.addSubview(loginButton)
         self.view.addSubview(signupButton)
         self.view.addSubview(searchButton)
@@ -93,8 +108,15 @@ class ViewController: UIViewController {
             $0.left.equalToSuperview().inset(50)
             $0.height.equalTo(50)
         }
+        //        nameTextField.snp.makeConstraints {
+        //            $0.centerX.equalToSuperview()
+        //            $0.top.equalTo(self.passwordTextField).inset(55)
+        //            $0.left.equalToSuperview().inset(50)
+        //            $0.height.equalTo(50)
+        //        }
         loginButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
+            //            $0.top.equalTo(self.nameTextField).inset(55)
             $0.top.equalTo(self.passwordTextField).inset(55)
             $0.left.equalToSuperview().inset(50)
             $0.height.equalTo(50)
@@ -118,4 +140,42 @@ class ViewController: UIViewController {
             $0.height.equalTo(100)
         }
     }
+    @objc func didClickLoginButton() {
+        guard let id = idTextField.text,
+              let password = passwordTextField.text else {
+            return
+        }
+
+        login(id: id , password: password)
+    }
+}
+
+extension ViewController {
+    func login(id: String, password: String) {
+        print("통신함")
+        httpClient.post(
+            url: "/user/login",
+            parmas: [
+                "account_id": id,
+                "password": password
+            ],
+            header: Header.tokenIsEmpty.header()
+        ).response(completionHandler: { res in
+            switch res.response?.statusCode {
+            case 200:
+                let decorder = JSONDecoder()
+                do {
+                    let data = try decorder.decode(LoginModel.self, from: res.data!)
+                    print("로그인 성공")
+                    print(data.access_token)
+                    print(data.refresh_token)
+                } catch {
+                    print("로그인 실패")
+                }
+            default:
+                print("오류!! \(res.response?.statusCode)")
+            }
+        })
+    }
+}
 }

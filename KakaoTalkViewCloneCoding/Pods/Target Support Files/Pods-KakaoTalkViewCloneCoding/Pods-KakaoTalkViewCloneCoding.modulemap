@@ -1,0 +1,6 @@
+framework module Pods_KakaoTalkViewCloneCoding {
+  umbrella header "Pods-KakaoTalkViewCloneCoding-umbrella.h"
+
+  export *
+  module * { export * }
+}
