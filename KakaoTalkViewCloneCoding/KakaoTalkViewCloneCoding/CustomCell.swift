@@ -51,10 +51,12 @@ class CustomCell: UITableViewCell {
     }
     
     private func setupUI() {
-        self.contentView.addSubview(myImageView)
-        self.contentView.addSubview(myLabel)
-        self.contentView.addSubview(detailLabel)
-        self.contentView.addSubview(timeLabel)
+        [
+            myImageView,
+            myLabel,
+            detailLabel,
+            timeLabel
+        ].forEach({self.contentView.addSubview($0)})
         myImageView.snp.makeConstraints {
             $0.top.equalTo(self.contentView.layoutMarginsGuide.snp.top)
             $0.bottom.equalTo(self.contentView.layoutMarginsGuide.snp.bottom)
